@@ -18,7 +18,8 @@ app.use('/api/v1',mainRouter);
 // Connect to DB then start server
 connectDB().then(() => {
     app.listen(PORT, () => {
-        console.log(`Server running on port ${PORT}`);
+        console.log(`Server running on port : ${PORT}`);
+        console.log(`Backend endpoint : http://localhost:${PORT}/`);
     });
 });
 

@@ -1,9 +1,15 @@
 const jwt = require('jsonwebtoken')
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 
-const JWT_SECRET = process.env.JWT_SECRET;
+const { JWT_SECRET } = require('../config');
+
+
+exports.trial = async(req,res)=>{
+    return res.json({'msg':"merchant code is running "})
+}
 
 exports.register = async(req,res)=>{
+    const {success}= sig
     const {username,password,phone_number,name} = req.body;
 
     
