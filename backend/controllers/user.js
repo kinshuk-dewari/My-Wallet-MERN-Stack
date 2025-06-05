@@ -3,7 +3,6 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt');
 const { JWT_SECRET } = require('../config');
 
-
 const {User} = require("../db/schema")
 
 const signupBody = z.object({
@@ -19,6 +18,12 @@ const signinBody = z.object({
     password:z.string(),
 })
 
+const updateBody = z.object({
+    password:z.string().optional(),
+    firstName:z.string().optional(),
+    lastName:z.string().optional(),
+})
+
 exports.trial = async(req,res)=>{
     return res.json({'msg':"user code is running "})
 }
@@ -28,7 +33,7 @@ exports.register = async(req,res)=>{
         const {success} = signupBody.safeParse(req.body)
         if(!success) {
             return res.status(411).json({
-                msg:"Incorrect Inputs"
+                msg:"Incorect credentials"
             })
         }
 
@@ -56,7 +61,7 @@ exports.register = async(req,res)=>{
 
         const token = jwt.sign({userId},JWT_SECRET);
 
-        res.status(200).json({
+        res.status(201).json({
             msg:"User created successfully",
             token:token
         })
@@ -88,13 +93,13 @@ exports.login = async(req,res)=>{
 
         if(!existingUser){
             res.status(403).json({
-                msg:"User doesn't exists, register first."
+                msg:"User doesn't exists, register as user first."
             })
         }
 
         const checkPass = await bcrypt.compare(req.body.password, existingUser.password)
         if(!checkPass){
-            res.status(403).json({
+            res.status(401).json({
                 msg:"Invalid Password"
             })
         }
@@ -111,9 +116,57 @@ exports.login = async(req,res)=>{
             msg:"Internal server error",
             error: err
         })
-    } 
+    }
 
+}
 
+exports.update = async(req,res)=>{
+    const {success} = updateBody.safeParse(req.body);
+
+    if(!success){
+        return res.status(411).json({
+            msg:"Error while updating iinformation"
+        })
+    }
+    const updated = await User.updateOne(req.body,{id:req.userId})
+
+    if(updated){
+        res.status(200).json({
+            msg:"Updated successfully"
+        })
+    }else{
+        res.status(411).json({
+            msg:"Error while updating iinformation"
+        })
+    }
+} 
+
+exports.bulk = async(req,res)=>{
+    const filter = req.query.filter || "";
+
+    const users = await User.find({
+        $or:[
+                {
+                    firstName:{ "$regex":filter }
+                },
+                {
+                    lastName:{ "$regex":filter }
+                },
+                {
+                    phoneNumber:{ "$regex":filter }
+                }
+            ]
+    })
+
+    res.json({
+        user:users.map(user=>({
+            username:user.username,
+            firstName:user.firstName,
+            lastName:user.lastName,
+            phoneNumber:user.phoneNumber,
+            _id:user._id
+        }))
+    })
 }
 
 exports.balance = async(req,res)=>{
