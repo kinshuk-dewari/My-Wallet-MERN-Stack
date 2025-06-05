@@ -75,19 +75,15 @@ const merchantSchema = new mongoose.Schema({
     }
 })
 
-const accountsSchema = new mongoose.Schema({
+const accountSchema = new mongoose.Schema({
     userId:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'User',
         required:true
     },
-    balance:{
-        type:Number,
-        required:true
-    },
-    decimal:{
-        type:Number,
-        required:true
+    balanceInPaise: {
+        type: Number, // to store ₹33.33 as 3333
+        required: true
     }
 })
 
@@ -115,11 +111,11 @@ const transactionsSchema = new mongoose.Schema({
 const User = mongoose.model("User",userSchema);
 const Merchant = mongoose.model("Merchant",merchantSchema);
 const Transactions = mongoose.model("Transactions",transactionsSchema);
-const Accounts = mongoose.model("Accounts",accountsSchema)
+const Account = mongoose.model("Account",accountSchema)
 
 module.exports={
     User,
     Merchant,
     Transactions,
-    Accounts
+    Account
 };
