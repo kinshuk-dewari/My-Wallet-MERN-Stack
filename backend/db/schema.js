@@ -27,9 +27,7 @@ const userSchema = new mongoose.Schema({
         required:true,
         unique:true,
         trim:true,
-        lowercase:true,
         minLength:3,
-        maxLength:30
     },
     phoneNumber:{
         type:String,
@@ -62,9 +60,7 @@ const merchantSchema = new mongoose.Schema({
         required:true,
         unique:true,
         trim:true,
-        lowercase:true,
-        minLength:3,
-        maxLength:30
+        minLength:3
     },
     phoneNumber:{
         type:String,
@@ -98,14 +94,10 @@ const transactionsSchema = new mongoose.Schema({
         ref:'User',
         required:true
     },
-    amount:{
-        type:Number,
-        required:true
-    },
-    decimal:{
-        type:Number,
-        required:true
-    },
+    amountInPaise: {
+        type: Number, // to store ₹33.33 as 3333
+        required: true
+    }
 })
 
 const User = mongoose.model("User",userSchema);

@@ -1,4 +1,4 @@
-import {z} from "zod";
+const { z } = require("zod");
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt');
 const { JWT_SECRET } = require('../config');

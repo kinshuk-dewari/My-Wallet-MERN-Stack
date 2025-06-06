@@ -1,4 +1,4 @@
-import {z} from "zod"
+const { z } = require("zod");
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt');
 const { JWT_SECRET } = require('../config');
@@ -46,8 +46,9 @@ exports.register = async(req,res)=>{
                 msg:"Email already exists"
             })
         }
-
-        const hashedPass = await bcrypt.hash(req.body.password,10)
+        
+        const hashedPass = await bcrypt.hash(req.body.password.trim(),10)
+        console.log("stored hashed pass in db:",hashedPass)
 
         const user = await User.create({
             firstName:req.body.firstName,
@@ -81,48 +82,48 @@ exports.register = async(req,res)=>{
 
 }
 
-exports.login = async(req,res)=>{
-    try{
-        const {success} = signinBody.safeParse(req.body);
+exports.login = async (req, res) => {
+    try {
+        const parsedBody = signinBody.safeParse(req.body);
 
-        if(!success){
-            return res.status(411).json({
-                msg:"Incorect Login credentials"
-            })
+        if (!parsedBody.success) {
+            return res.status(400).json({
+                msg: "Incorrect login credentials"
+            });
         }
 
-        const existingUser = await User.findOne({
-            username:req.body.username
-        })
+        const { username, password } = parsedBody.data;
 
-        if(!existingUser){
+        const existingUser = await User.findOne({ username });
+
+        if (!existingUser) {
             return res.status(403).json({
-                msg:"User doesn't exists, register as user first."
-            })
+                msg: "User doesn't exist, please register first."
+            });
         }
 
-        const checkPass = await bcrypt.compare(req.body.password, existingUser.password)
-        if(!checkPass){
+        const isPasswordValid = await bcrypt.compare(password, existingUser.password);
+        if (!isPasswordValid) {
             return res.status(401).json({
-                msg:"Invalid Password"
-            })
+                msg: "Invalid password"
+            });
         }
 
-        const token = jwt.sign({userId:existingUser._id},JWT_SECRET);
+        const token = jwt.sign({ userId: existingUser._id }, JWT_SECRET, { expiresIn: "1h" });
 
         return res.status(200).json({
-            msg:"Login Successful",
-            token:token
-        })
-        
-    }catch(err){
-        return res.status(500).json({
-            msg:"Internal server error",
-            error: err
-        })
-    }
+            msg: "Login successful",
+            token
+        });
 
+    } catch (err) {
+        return res.status(500).json({
+            msg: "Internal server error",
+            error: err.message
+        });
+    }
 }
+
 
 exports.update = async(req,res)=>{
     const {success} = updateBody.safeParse(req.body);

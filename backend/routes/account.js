@@ -1,7 +1,8 @@
 const express = require('express');
+
 const router = express.Router();
 
-const {balance,transactions} = require('../controllers/account');
+const {balance,transactions,transfer} = require('../controllers/account');
 const { authMiddleware } = require('../middlewares/middleware');
 
 router.get('/balance',authMiddleware,balance);

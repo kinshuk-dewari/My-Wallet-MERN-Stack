@@ -1,5 +1,7 @@
 const express = require('express');
+
 const router = express.Router();
+
 const {register,login,balance,transactions,report,trial} = require('../controllers/merchant');
 const { authMiddleware } = require('../middlewares/middleware');
 
