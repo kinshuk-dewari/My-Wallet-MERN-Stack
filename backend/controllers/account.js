@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const { Account, Transactions } = require("../db/schema");
 
 const transferBody = z.object({
-  amount: z.number().positive,
+  amount: z.number().positive(),
   to: z.string(),
 });
 exports.balance = async (req, res) => {
@@ -62,13 +62,13 @@ exports.transfer = async (req, res) => {
 
     // perform the transfer
     await Account.updateOne(
-      { userId: req.userID },
-      { $inc: { balance: -amountInPaise } }
+      { userId: req.userId },
+      { $inc: { balanceInPaise: -amountInPaise } }
     ).session(session);
 
     await Account.updateOne(
       { userId: to },
-      { $inc: { balance: amountInPaise } }
+      { $inc: { balanceInPaise: amountInPaise } }
     ).session(session);
 
     // log the transactions 
@@ -88,7 +88,8 @@ exports.transfer = async (req, res) => {
     await session.abortTransaction();
     return res.status(500).json({
        msg: "Internal Server Error",
-       error: err,
+       error: err.message,
+       stack: err.stack,
     });
   }
   finally{
@@ -96,4 +97,32 @@ exports.transfer = async (req, res) => {
   }
 };
 
-exports.transactions = async (req, res) => {};
+exports.transactions = async (req, res) => {
+  try{
+    const userId = req.userId;
+
+    const allTransactiions = await Transactions.find({
+      $or:[
+        {senderId:userId},
+        {recieverId:userId},
+      ]
+    }).sort({_id:-1});
+
+    const formattedTransactions = allTransactiions.map(transaction=>({
+      // id:transaction._id,
+      sender: transaction.senderId.toString(),
+      receiver: transaction.recieverId.toString(),
+      amount: (transaction.amountInPaise / 100).toFixed(2),
+    }));
+
+    return res.status(200).json({
+      transactions:formattedTransactions
+    });
+
+  }catch(err){
+    return res.status(500).json({
+      msg:"Could not fetch the transactions",
+      error:err.message
+    });
+  }
+};

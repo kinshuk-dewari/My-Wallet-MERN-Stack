@@ -89,7 +89,7 @@ const transactionsSchema = new mongoose.Schema({
         ref:'User',
         required:true
     },
-    reciever:{
+    recieverId:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'User',
         required:true

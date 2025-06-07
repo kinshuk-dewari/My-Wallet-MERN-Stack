@@ -19,7 +19,9 @@ const authMiddleware = (req,res,next)=>{
     }
     catch(err){
         return res.status(403).json({
-            msg:"Forbidden: Invalid token"
+            msg:"Forbidden: Invalid token",
+            error: err.message,
+            stack: err.stack,
         });
     }
 }
