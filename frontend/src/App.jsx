@@ -4,7 +4,7 @@ import NavBar from "./components/NavBar";
 
 function App() {
   // Use state if you plan to change login/role dynamically
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [role, setRole] = useState("user"); // "user" or "merchant"
 
   const toggleRole = () => {
