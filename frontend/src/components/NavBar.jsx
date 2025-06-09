@@ -13,7 +13,7 @@ import {
   IconHome,
   IconFileAnalytics,
   IconAlignBoxCenterStretch,
-  IconDashboard,
+  IconBrandTabler
 } from "@tabler/icons-react";
 import { cn } from "../lib/utils";
 
@@ -22,16 +22,16 @@ const NavBar = ({ role, desktopClassName, mobileClassName }) => {
 
   const navItems = {
     user: [
-      { title: "Home", href: "/", icon: <IconHome size={20} /> },
-      { title: "Scan", href: "/send", icon: <IconQrcode size={20} /> },
-      { title: "Transactions", href: "/transactions", icon: <IconAlignBoxCenterStretch size={20} /> },
+      { title: "Home", href: "/home", icon: <IconHome size={30} /> },
+      { title: "Send Money", href: "/send", icon: <IconQrcode size={30} /> },
+      { title: "History", href: "/history", icon: <IconAlignBoxCenterStretch size={30} /> },
     ],
     merchant: [
-      { title: "Transactions", href: "/merchant/transactions", icon: <IconAlignBoxCenterStretch size={20} /> },
-      { title: "Dashboard", href: "/merchant/dashboard", icon: <IconDashboard size={20} /> },
-      { title: "Scan", href: "/send", icon: <IconQrcode size={20} /> },
-      { title: "Home", href: "/merchant", icon: <IconHome size={20} /> },
-      { title: "Report", href: "/merchant/report", icon: <IconFileAnalytics size={20} /> },
+      { title: "Dashboard", href: "/merchant/dashboard", icon: <IconBrandTabler size={30} /> },
+      { title: "Home", href: "/merchant", icon: <IconHome size={30} /> },
+      { title: "Send Money", href: "/send", icon: <IconQrcode size={30} /> },
+      { title: "History", href: "/merchant/history", icon: <IconAlignBoxCenterStretch size={30} /> },
+      { title: "Report", href: "/merchant/report", icon: <IconFileAnalytics size={30} /> },
     ],
   };
 
@@ -71,7 +71,7 @@ const FloatingDockMobile = ({ items, pathname, className }) => {
                 <a
                   href={item.href}
                   className={cn(
-                    "flex h-10 w-10 items-center justify-center rounded-full bg-gray-50 dark:bg-neutral-900",
+                    "flex h-12 w-12 items-center justify-center rounded-full bg-gray-50 dark:bg-neutral-900",
                     pathname === item.href && "shadow-md shadow-gray-700"
                   )}
                 >
@@ -85,9 +85,9 @@ const FloatingDockMobile = ({ items, pathname, className }) => {
 
       <button
         onClick={() => setOpen(!open)}
-        className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-50 dark:bg-neutral-800"
+        className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-50 dark:bg-neutral-800"
       >
-        <IconLayoutNavbarCollapse className="h-5 w-5 text-neutral-500 dark:text-neutral-300" />
+        <IconLayoutNavbarCollapse className="h-6 w-6 text-neutral-500 dark:text-neutral-300" />
       </button>
     </div>
   );
@@ -101,7 +101,7 @@ const FloatingDockDesktop = ({ items, pathname, className }) => {
       onMouseMove={(e) => mouseX.set(e.pageX)}
       onMouseLeave={() => mouseX.set(Infinity)}
       className={cn(
-        "mx-auto hidden h-16 items-end gap-4 rounded-2xl bg-gray-50 px-4 pb-3 md:flex dark:bg-neutral-900",
+        "mx-auto hidden h-16 items-end gap-4 rounded-2xl bg-gray-50 px-4 pb-3 md:flex dark:bg-neutral-900 mb-12",
         className
       )}
     >

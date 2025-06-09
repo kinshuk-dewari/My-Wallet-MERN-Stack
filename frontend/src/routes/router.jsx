@@ -1,17 +1,20 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 
-// Normal User pages
-
+// Common pages
 import Register from "../pages/Register"
 import Login from "../pages/Login"
-import Dashboard from "../pages/user/Dashboard"
 import SendMoney from "../pages/SendMoney"
-import LandingPage from "../pages/user/LandingPage"
+import LandingPage from "../pages/LandingPage"
 
+// Normal User pages
+import UserHome from "../pages/user/UserHome";
+import Transactions from "../pages/Transactions";
 
-// // Merchant pages
-// import Dashboard from "../pages/merchant/Dashboard";
+// Merchant pages
+import MerchantHome from "../pages/merchant/MerchantHome"
+import Dashboard from "../pages/merchant/Dashboard"
+import Report from "../pages/merchant/Report"
 
 const router = createBrowserRouter([
     {
@@ -19,24 +22,67 @@ const router = createBrowserRouter([
         element:<App/>,
         children:[
             {
-                path:"/",
+                path:"",
                 element:<LandingPage/>
             },
             {
-                path:"/register",
+                path:"register",
                 element:<Register/>
             },
             {
-                path:"/Login",
+                path:"login",
                 element:<Login/>
             },
             {
-                path:"/dashboard",
+                path:"home",
+                element:<UserHome/>
+            },
+            {
+                path:"dashboard",
                 element:<Dashboard/>
             },
             {
-                path:"/send",
+                path:"send",
                 element:<SendMoney/>
+            },
+            {
+                path:"history",
+                element:<Transactions/>
+            },
+        ]
+
+    },
+    {
+        path:"/merchant",
+        element:<App/>,
+        children:[
+            {
+                path:"register",
+                element:<Register/>
+            },
+            {
+                path:"login",
+                element:<Login/>
+            },
+            {
+                path:"home",
+                element:<MerchantHome/>
+            },
+            {
+                path:"dashboard",
+                element:<Dashboard/>
+            },
+            {
+                path:"send",
+                element:<SendMoney/>
+            },
+            {
+                path:"history",
+                element:<Transactions/>
+            },
+            {
+                path:"report",
+                element:<Report/>
             },
         ]
 
