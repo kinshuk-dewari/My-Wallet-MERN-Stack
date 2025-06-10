@@ -23,8 +23,10 @@ const Register = () => {
         <InputBox label="Phone Number" placeholder="9876543210" />
         <InputBox label="Email" type="email" placeholder="yourmail@email.com" />
         <InputBox label="Password" type="password" placeholder="Some@strongPassword1234" />
-
-        <Button label="Sign Up" onClick={click} />
+        
+        <div className='w-full px-6'>
+          <Button label="Sign Up" onClick={click} />
+        </div>
 
         <Divider />
 

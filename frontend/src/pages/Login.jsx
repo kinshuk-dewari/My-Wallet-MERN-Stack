@@ -20,7 +20,9 @@ const Login = () => {
 
         <InputBox label="Email" type="email" placeholder="yourmail@email.com"/>
         <InputBox label="Password" type="password" placeholder="Some@strongPassword1234"/>        
-        <Button label="SignIn" onClick={click}/>
+        <div className='w-full px-6'>
+          <Button label="SignIn" onClick={click}/>
+        </div>
 
         {/* Divider */}
         <div className="flex items-center w-full justify-center my-4">
