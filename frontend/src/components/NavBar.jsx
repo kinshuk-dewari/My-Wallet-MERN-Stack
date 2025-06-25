@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState,useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import {
   AnimatePresence,
@@ -47,9 +47,27 @@ const NavBar = ({ role, desktopClassName, mobileClassName }) => {
 
 const FloatingDockMobile = ({ items, pathname, className }) => {
   const [open, setOpen] = useState(false);
+  const menuRef = useRef(null);
+
+  // Handle outside click
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setOpen(false);
+      }
+    };
+
+    if (open) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [open]);
 
   return (
-    <div className={cn("relative block md:hidden", className)}>
+    <div className={cn("relative block md:hidden", className)} ref={menuRef}>
       <AnimatePresence>
         {open && (
           <motion.div
