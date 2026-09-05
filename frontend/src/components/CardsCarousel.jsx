@@ -49,11 +49,11 @@ const CardsCarousel = () => {
         <div className='flex flex-col items-start space-y-12 justify-center'>
             <h1 className='text-5xl uppercase font-bold text-balance'>For people going places </h1>
             <div className='flex items-center justify-center gap-4'>
-                <button className='bg-neutral-100 dark:bg-neutral-900 rounded-full p-3 ' onClick={handlePrev}> 
-                    <HiArrowLeft className='text-black w-12 h-12' />     
+                <button className='bg-neutral-200 transition ease-in-out hover:bg-[#88e63b] text-neutral-500 hover:text-[#1c3108] cursor-pointer  text-shadow-2xs hover:shadow-xl rounded-full p-3 ' onClick={handlePrev}> 
+                    <HiArrowLeft className=' w-12 h-12' />     
                 </button>
-                <button className='bg-neutral-300 dark:bg-neutral-700 rounded-full p-3 ' onClick={handleNext}> 
-                    <HiArrowRight className='text-black w-12 h-12' />     
+                <button className='bg-[#9ee86f] cursor-pointer transition ease-in-out text-shadow-2xs hover:bg-[#88e63b] rounded-full p-3 ' onClick={handleNext}> 
+                    <HiArrowRight className='text-[#1c3108]  w-12 h-12' />     
                 </button>
             </div>
         </div>

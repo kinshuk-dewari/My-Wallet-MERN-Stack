@@ -15,8 +15,8 @@ const Register = () => {
       <div className='dark:bg-neutral-900 overflow-hidden flex flex-col items-center justify-center rounded-2xl max-w-md py-8 space-y-2'>
 
         <Heading text="Signup" />
-        <span className='border-b w-full border-b-white/20'></span>
-        <Subheading text="enter your information get started" />
+        <span className='border-b w-full border-b-black/20'></span>
+        <Subheading text="enter your information, get started" />
 
         <Name />
 
@@ -42,32 +42,32 @@ export default Register
 
 function Divider() {
   return <div className="flex items-center w-full justify-center my-4">
-    <span className='border-b w-full border-b-white/20'></span>
+    <span className='border-b w-full border-b-black/20'></span>
     <span className="px-2 text-sm text-neutral-500">or</span>
-    <span className='border-b w-full border-b-white/20'></span>
+    <span className='border-b w-full border-b-black/20'></span>
   </div>
 }
 
 function Name() {
-  return <div className="w-full flex items-center justify-between px-6">
+  return <div className="w-full flex items-center justify-between px-6 gap-2">
     <div>
-      <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-400">
+      <label className="block text-sm font-medium text-neutral-700 ">
         First Name
       </label>
       <input
         type='text'
         placeholder='Kinshuk'
-        className="w-full rounded-md border border-gray-300 dark:border-neutral-700 px-3 py-2 bg-white dark:bg-neutral-800 text-sm text-neutral-900 dark:text-white placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-full rounded-md border border-neutral-700 px-3 py-2  text-sm text-neutral-900  placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
     </div>
     <div>
-      <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-400">
+      <label className="block text-sm font-medium text-neutral-700 ">
         Last Name
       </label>
       <input 
         type='text'
         placeholder='Dewari'
-        className="w-full rounded-md border border-gray-300 dark:border-neutral-700 px-3 py-2 bg-white dark:bg-neutral-800 text-sm text-neutral-900 dark:text-white placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-full rounded-md border border-neutral-700 px-3 py-2  text-sm text-neutral-900  placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
     </div>
   </div>

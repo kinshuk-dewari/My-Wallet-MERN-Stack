@@ -11,8 +11,7 @@ function App() {
       isLoggedIn ? (      
         <MobileLayout>
           <Outlet />
-        </MobileLayout>) : (
-          
+        </MobileLayout>) : (          
          
           <Outlet />
         
